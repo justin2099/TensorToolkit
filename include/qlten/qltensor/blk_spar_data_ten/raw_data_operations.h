@@ -960,7 +960,7 @@ __global__
 inline void ElementWiseSqrtKernel(ElemT *data, size_t size) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   if (idx < size) {
-    data[idx] = qlten::sqrt(data[idx]);
+    data[idx] = cuda::std::sqrt(data[idx]);
   }
 }
 
