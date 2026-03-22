@@ -944,7 +944,7 @@ void BlockSparseDataTensor<ElemT, QNT>::ElementWiseInv() {
 }
 
 template<typename ElemT, typename QNT>
-void BlockSparseDataTensor<ElemT, QNT>::ElementWiseInv(double tolerance) {
+void BlockSparseDataTensor<ElemT, QNT>::ElementWiseInv(typename RealTypeTrait<ElemT>::type tolerance) {
   const int threadsPerBlock = 256;
   const int blocks = (actual_raw_data_size_ + threadsPerBlock - 1) / threadsPerBlock;
 
