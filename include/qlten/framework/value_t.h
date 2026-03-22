@@ -38,13 +38,12 @@ using QLTEN_ComplexFloat = cuda::std::complex<QLTEN_Float>;
 using cuda::std::abs;
 using cuda::std::conj;
 using cuda::std::norm;
-// Provide explicit sqrt overloads instead of `using cuda::std::sqrt`,
-// which would import sqrt(float)/sqrt(double) and cause ambiguity
-// with CUDA's math_functions.hpp when `using namespace qlten` is used.
+// Only provide sqrt for complex types. Do NOT add sqrt(double)/sqrt(float)
+// here — they cause ambiguity with CUDA's math_functions.hpp when
+// `using namespace qlten` leaks them into the global scope.
+// For scalar sqrt, use ::sqrt or std::sqrt directly.
 inline QLTEN_Complex sqrt(const QLTEN_Complex &z) { return cuda::std::sqrt(z); }
 inline QLTEN_ComplexFloat sqrt(const QLTEN_ComplexFloat &z) { return cuda::std::sqrt(z); }
-inline double sqrt(double x) { return ::sqrt(x); }
-inline float sqrt(float x) { return ::sqrtf(x); }
 
 // Provide arg/polar wrappers in qlten namespace for cuda::std::complex
 inline double arg(const QLTEN_Complex &z) { return cuda::std::arg(z); }
